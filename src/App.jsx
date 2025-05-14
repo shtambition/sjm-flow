@@ -9,6 +9,7 @@ import ReactFlow, {
 } from 'reactflow'
 import CustomNode from './CustomNode'
 import 'reactflow/dist/style.css'
+import { Analytics } from '@vercel/analytics/react'
 
 let id = 0
 const getId = () => `node_${id++}`
@@ -184,6 +185,7 @@ function App() {
         <Controls />
         <Background />
       </ReactFlow>
+    <Analytics />  {/* ✅ 加在最底部即可 */}
     </div>
   )
 }
