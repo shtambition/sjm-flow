@@ -1,0 +1,170 @@
+import React, { useCallback, useEffect, useState } from 'react'
+import ReactFlow, {
+  ReactFlowProvider,
+  addEdge,
+  MiniMap,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+} from 'reactflow'
+import 'reactflow/dist/style.css'
+
+let id = 0
+const getId = () => `node_${id++}`
+
+const initialNodes = [
+  {
+    id: getId(),
+    position: { x: 100, y: 100 },
+    data: { label: '任务 A' },
+    type: 'default',
+  },
+]
+
+const initialEdges = []
+
+function FlowEditor() {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+
+  const [selectedNodes, setSelectedNodes] = useState([])
+  const [selectedEdges, setSelectedEdges] = useState([])
+
+  // 👉 支持平滑带箭头连接线
+  const onConnect = useCallback(
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            type: 'smoothstep',
+            markerEnd: { type: 'arrowclosed' },
+            style: { stroke: '#0077cc', strokeWidth: 2 },
+          },
+          eds
+        )
+      ),
+    [setEdges]
+  )
+
+  // 👉 键盘删除功能（不影响输入框）
+  useEffect(() => {
+    const isInputFocused = () => {
+      const active = document.activeElement
+      return (
+        active &&
+        (active.tagName === 'INPUT' ||
+          active.tagName === 'TEXTAREA' ||
+          active.getAttribute('contenteditable') === 'true')
+      )
+    }
+
+    const handleKeyDown = (event) => {
+      if (isInputFocused()) return
+
+      if (event.key === 'Delete' || event.key === 'Backspace') {
+        setNodes((nds) => nds.filter((n) => !selectedNodes.some((sn) => sn.id === n.id)))
+        setEdges((eds) => eds.filter((e) => !selectedEdges.some((se) => se.id === e.id)))
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedNodes, selectedEdges])
+
+  // 👉 选中节点/边记录
+  const onSelectionChange = useCallback(({ nodes, edges }) => {
+    setSelectedNodes(nodes)
+    setSelectedEdges(edges)
+  }, [])
+
+  // 👉 修改节点名称
+  const handleLabelChange = (id, value) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === id ? { ...node, data: { ...node.data, label: value } } : node
+      )
+    )
+  }
+
+  // 👉 自定义节点渲染（带输入框）
+  const CustomNode = ({ id, data }) => (
+    <div style={{ padding: 10, background: '#f3f3f3', borderRadius: 5, border: '1px solid #ccc' }}>
+      <input
+        type="text"
+        value={data.label}
+        onChange={(e) => handleLabelChange(id, e.target.value)}
+        style={{ width: 100 }}
+      />
+    </div>
+  )
+
+  const nodeTypes = { default: CustomNode }
+
+  // 👉 导出 JSON
+  const handleExport = () => {
+    const json = JSON.stringify({ nodes, edges }, null, 2)
+    const blob = new Blob([json], { type: 'application/json' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'flow.json'
+    link.click()
+  }
+
+  // 👉 导入 JSON
+  const handleImport = (event) => {
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const { nodes: newNodes, edges: newEdges } = JSON.parse(e.target.result)
+      setNodes(newNodes)
+      setEdges(newEdges)
+    }
+    reader.readAsText(file)
+  }
+
+  // 👉 添加节点
+  const handleAddNode = () => {
+    const newNode = {
+      id: getId(),
+      position: { x: Math.random() * 400, y: Math.random() * 400 },
+      data: { label: '新任务' },
+      type: 'default',
+    }
+    setNodes((nds) => [...nds, newNode])
+  }
+
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ padding: 10 }}>
+        <button onClick={handleAddNode}>➕ 添加任务</button>{' '}
+        <button onClick={handleExport}>💾 导出 JSON</button>{' '}
+        <input type="file" accept="application/json" onChange={handleImport} />
+      </div>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onSelectionChange={onSelectionChange}
+        nodeTypes={nodeTypes}
+        fitView
+        selectionOnDrag
+      >
+        <MiniMap />
+        <Controls />
+        <Background />
+      </ReactFlow>
+    </div>
+  )
+}
+
+export default function App() {
+  return (
+    <ReactFlowProvider>
+      <FlowEditor />
+    </ReactFlowProvider>
+  )
+}
