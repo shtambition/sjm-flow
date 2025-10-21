@@ -1,0 +1,287 @@
+{
+  "nodes": [
+    {
+      "id": "node_0",
+      "type": "custom",
+      "position": {
+        "x": 126.48888970380563,
+        "y": 280.6248659246041
+      },
+      "data": {
+        "taskId": "task0",
+        "taskName": "Unigene_Analysis_split_fa_{contractid}",
+        "memThread": "1&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 126.48888970380563,
+        "y": 280.6248659246041
+      }
+    },
+    {
+      "id": "node_1",
+      "type": "custom",
+      "position": {
+        "x": 128.39307969261307,
+        "y": 654.742662565606
+      },
+      "data": {
+        "taskId": "task1",
+        "taskName": "Unigene_Analysis_HMM_fegenie_{split}_{contractid}",
+        "memThread": "10&5",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 128.39307969261307,
+        "y": 654.742662565606
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_2",
+      "type": "custom",
+      "position": {
+        "x": 128.75720931356307,
+        "y": 1046.6513268608976
+      },
+      "data": {
+        "taskId": "task2",
+        "taskName": "Unigene_Analysis_combine_HMM_fegenie_{contractid}",
+        "memThread": "1&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 128.75720931356307,
+        "y": 1046.6513268608976
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_3",
+      "type": "custom",
+      "position": {
+        "x": 130.4745359378415,
+        "y": 1426.7568104286927
+      },
+      "data": {
+        "taskId": "task3",
+        "taskName": "Unigene_Analysis_Calculate_abundance_{contractid}",
+        "memThread": "10&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 130.4745359378415,
+        "y": 1426.7568104286927
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_4",
+      "type": "custom",
+      "position": {
+        "x": -611.2222408598941,
+        "y": 1892.0311050340988
+      },
+      "data": {
+        "taskId": "task4",
+        "taskName": "Basic-visualization-barplot_{contractid}",
+        "memThread": "10&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": true,
+      "positionAbsolute": {
+        "x": -611.2222408598941,
+        "y": 1892.0311050340988
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_5",
+      "type": "custom",
+      "position": {
+        "x": -32.83861967462667,
+        "y": 1900.345875325997
+      },
+      "data": {
+        "taskId": "task5",
+        "taskName": "Basic-visualization-circos_{contractid}",
+        "memThread": "10&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -32.83861967462667,
+        "y": 1900.345875325997
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_6",
+      "type": "custom",
+      "position": {
+        "x": 505.50951851419836,
+        "y": 1909.3726237404994
+      },
+      "data": {
+        "taskId": "task6",
+        "taskName": "Basic-visualization-heatmap_{contractid}",
+        "memThread": "10&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 505.50951851419836,
+        "y": 1909.3726237404994
+      },
+      "dragging": false
+    },
+    {
+      "id": "node_7",
+      "type": "custom",
+      "position": {
+        "x": 1049.9213803142245,
+        "y": 1905.3758413089397
+      },
+      "data": {
+        "taskId": "task7",
+        "taskName": "Basic-visualization-venn_{contractid}",
+        "memThread": "10&1",
+        "params": ""
+      },
+      "width": 474,
+      "height": 318,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1049.9213803142245,
+        "y": 1905.3758413089397
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "node_0",
+      "sourceHandle": null,
+      "target": "node_1",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_0-node_1"
+    },
+    {
+      "source": "node_1",
+      "sourceHandle": null,
+      "target": "node_2",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_1-node_2"
+    },
+    {
+      "source": "node_2",
+      "sourceHandle": null,
+      "target": "node_3",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_2-node_3"
+    },
+    {
+      "source": "node_3",
+      "sourceHandle": null,
+      "target": "node_4",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_3-node_4"
+    },
+    {
+      "source": "node_3",
+      "sourceHandle": null,
+      "target": "node_5",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_3-node_5"
+    },
+    {
+      "source": "node_3",
+      "sourceHandle": null,
+      "target": "node_6",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_3-node_6"
+    },
+    {
+      "source": "node_3",
+      "sourceHandle": null,
+      "target": "node_7",
+      "targetHandle": null,
+      "type": "default",
+      "markerEnd": {
+        "type": "arrowclosed"
+      },
+      "style": {
+        "stroke": "#0077cc",
+        "strokeWidth": 2
+      },
+      "id": "reactflow__edge-node_3-node_7"
+    }
+  ]
+}
