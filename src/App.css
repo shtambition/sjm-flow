@@ -11,9 +11,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +24,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +42,94 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* 默认连接线样式（未选中状态） */
+.react-flow__edge path.react-flow__edge-path {
+  stroke: #0077cc;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.react-flow__edge marker path,
+.react-flow__edge marker polygon {
+  fill: #0077cc;
+  stroke: #0077cc;
+}
+
+/* 选中连接线的高亮效果 */
+.react-flow__edge.selected path.react-flow__edge-path {
+  stroke: #ff6b00 !important;
+  stroke-width: 4 !important;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6));
+  animation: pulse-edge 1.5s ease-in-out infinite;
+}
+
+/* 脉冲动画效果 */
+@keyframes pulse-edge {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 12px rgba(255, 107, 0, 0.9));
+  }
+}
+
+/* 箭头高亮 */
+.react-flow__edge.selected marker path,
+.react-flow__edge.selected marker polygon {
+  fill: #ff6b00 !important;
+  stroke: #ff6b00 !important;
+}
+
+/* 未选中的连接线hover效果 */
+.react-flow__edge:not(.selected):hover path.react-flow__edge-path {
+  stroke: #00ff88 !important;
+  /* 亮绿色 */
+  stroke-width: 4 !important;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.8)) drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
+  animation: hover-glow 1.2s ease-in-out infinite;
+}
+
+.react-flow__edge:not(.selected):hover marker path,
+.react-flow__edge:not(.selected):hover marker polygon {
+  fill: #00ff88 !important;
+  stroke: #00ff88 !important;
+}
+
+/* 悬浮时的动画 */
+@keyframes hover-glow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.8)) drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 15px rgba(0, 255, 136, 1)) drop-shadow(0 0 30px rgba(0, 255, 136, 0.6));
+  }
+}
+
+/* 额外的选择器确保能捕获到选中状态 */
+.react-flow__edge.selected {
+  z-index: 1000 !important;
+}
+
+.react-flow__edge.selected>* {
+  stroke: #ff6b00 !important;
+}
+
+.react-flow__edge.selected g path {
+  stroke: #ff6b00 !important;
+  stroke-width: 4 !important;
+}
+
+/* 确保Controls按钮在真正的左下角 */
+.react-flow__controls {
+  left: 10px !important;
+  bottom: 10px !important;
 }

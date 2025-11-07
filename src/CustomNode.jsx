@@ -11,9 +11,10 @@ function CustomNode({ data, selected }) {
     color: '#000',
     fontFamily: 'Arial, sans-serif',
     boxShadow: selected ? '0 0 10px #0077cc' : '0 1px 4px rgba(0,0,0,0.1)',
+    textAlign: 'left',
   };
 
-  const labelStyle = { fontWeight: 'bold', marginBottom: 4 };
+  const labelStyle = { fontWeight: 'bold', marginBottom: 4, textAlign: 'left' };
   const inputStyle = {
     width: '100%',
     padding: '6px',
@@ -25,49 +26,66 @@ function CustomNode({ data, selected }) {
     backgroundColor: selected ? '#fff' : '#f9f9f9',
   };
 
-  // 通用阻止拖动行为
-  const stopDrag = (e) => {
+  // 阻止输入框触发节点拖动
+  const handleInputMouseDown = (e) => {
     e.stopPropagation();
+  };
+
+  // 拖动手柄样式
+  const dragHandleStyle = {
+    cursor: 'move',
+    padding: '8px',
+    marginBottom: '10px',
+    background: 'rgba(0, 0, 0, 0.05)',
+    borderRadius: '10px',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#555',
   };
 
   return (
     <div style={boxStyle}>
+      {/* 拖动手柄区域 */}
+      <div className="drag-handle" style={dragHandleStyle}>
+        ⋮⋮ 拖动此处移动节点
+      </div>
 
       <div style={labelStyle}>Task id:</div>
       <input
+        className="nodrag"
         value={data.taskId}
         onChange={(e) => data.onChange('taskId', e.target.value)}
         style={inputStyle}
-        onMouseDown={stopDrag}
-        onPointerDown={stopDrag}
+        onMouseDown={handleInputMouseDown}
       />
 
       <div style={labelStyle}>Task name:</div>
       <input
+        className="nodrag"
         value={data.taskName}
         onChange={(e) => data.onChange('taskName', e.target.value)}
         style={inputStyle}
-        onMouseDown={stopDrag}
-        onPointerDown={stopDrag}
+        onMouseDown={handleInputMouseDown}
       />
 
       <div style={labelStyle}>Memory & thread:</div>
       <input
+        className="nodrag"
         value={data.memThread}
         onChange={(e) => data.onChange('memThread', e.target.value)}
         style={inputStyle}
-        onMouseDown={stopDrag}
-        onPointerDown={stopDrag}
+        onMouseDown={handleInputMouseDown}
       />
 
       <div style={labelStyle}>Other parameters:</div>
       <input
+        className="nodrag"
         value={data.params}
         onChange={(e) => data.onChange('params', e.target.value)}
         style={inputStyle}
-        onMouseDown={stopDrag}
-        onPointerDown={stopDrag}
+        onMouseDown={handleInputMouseDown}
       />
+
       <Handle
         type="target"
         position={Position.Top}
