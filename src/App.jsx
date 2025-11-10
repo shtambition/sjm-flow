@@ -137,6 +137,7 @@ function FlowContent() {
         // 导入的边使用默认配置，让 CSS 类控制样式
         const restoredEdges = (parsed.edges || []).map((e) => ({
           ...e,
+          markerEnd: e.markerEnd || { type: 'arrowclosed' },
           interactionWidth: 20,
         }))
 
@@ -178,6 +179,7 @@ function FlowContent() {
           {
             ...params,
             type: 'default',
+            markerEnd: { type: 'arrowclosed' },
             interactionWidth: 20,
           },
           eds
